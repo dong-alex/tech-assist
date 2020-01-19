@@ -19,6 +19,7 @@ const WRONG_INDEX = [2,3,4];
 const CORRECT_ANS = ["A","B","C","D"]
 
 var correctAnswer;
+var questionList;
 
 app.use(
     new Alexa(),
@@ -42,11 +43,8 @@ function shuffleArray(a) { // Fisher-Yates shuffle, no side effects
 
 app.setHandler({
     LAUNCH() {
-
-        // Start the index for questions at 0
-        var min = 0;
-        var max = this.$cms.question.length
-        this.$session.$data.questionIndex = Math.floor(Math.random() * (+max - +min)) + +min;;
+        var length = this.$cms.question.length;
+        questionList = shuffleArray([...Array(length).keys()])
 
         return this.toIntent('MockExam');
     },
@@ -57,6 +55,10 @@ app.setHandler({
 
     MockExam() {
         
+        // Start the question index
+        this.$session.$data.questionIndex = questionList[0];
+        questionList.shift()
+
         var choice = shuffleArray([0,1,2,3]);
         var correct = choice[0];
         var wrong = choice.slice(1, 4);
@@ -132,17 +134,25 @@ app.setHandler({
     },
     QuestionReply(){
         if (this.$inputs.letter.value.toLowerCase() == correctAnswer.toLowerCase()){
-            this.ask("You are correct! It is " +  this.$inputs.letter.value + " \nWould you like to continue?");
-
+            if (questionList === undefined || questionList.length == 0){
+                this.tell("You are correct! It is " +  this.$inputs.letter.value + " \nYou completed all the questions!");
+            } else {
+                this.ask("You are correct! It is " +  this.$inputs.letter.value + " \nWould you like to continue?");
+            }
         } else {
-            this.ask("You were incorrect. It is " +  correctAnswer + " \nWould you like to continue?");
+            if (questionList === undefined || questionList.length == 0){
+                this.tell("You are correct! It is " +  correctAnswer + " \nYou completed all the questions!");
+            } else {
+                this.ask("You were incorrect. It is " +  correctAnswer + " \nWould you like to continue?");
+            }
+  
         }
 
         
     },
 
     YesIntent() {
-        return this.toIntent('MockInterview');
+        return this.toIntent('MockExam');
     },
 
     NoIntent() {
