@@ -1,0 +1,17 @@
+{
+	"name": "QuestionReply",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "letter",
+					"value": "$letter",
+					"dataType": "@answerReply"
+				}
+			]
+		}
+	]
+}

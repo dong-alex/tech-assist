@@ -1,0 +1,80 @@
+{
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "my test app",
+			"types": [
+				{
+					"name": "answerReply",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "A"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "B"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "C"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "D"
+							}
+						}
+					]
+				}
+			],
+			"intents": [
+				{
+					"name": "HelloWorldIntent",
+					"samples": [
+						"hello",
+						"say hello",
+						"say hello world"
+					]
+				},
+				{
+					"name": "MockExam",
+					"samples": [
+						"Quiz Me",
+						"Mock Interview",
+						"Mock Exam",
+						"Test Question"
+					]
+				},
+				{
+					"name": "QuestionReply",
+					"samples": [
+						"{letter}",
+						"the answer is {letter}",
+						"it's {letter}",
+						"it is {letter}"
+					],
+					"slots": [
+						{
+							"name": "letter",
+							"type": "answerReply"
+						}
+					]
+				},
+				{
+					"name": "AMAZON.YesIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NoIntent",
+					"samples": []
+				}
+			]
+		}
+	}
+}
