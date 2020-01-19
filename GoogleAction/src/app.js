@@ -44,7 +44,9 @@ app.setHandler({
     LAUNCH() {
 
         // Start the index for questions at 0
-        this.$session.$data.questionIndex = 0;
+        var min = 0;
+        var max = this.$cms.question.length
+        this.$session.$data.questionIndex = Math.floor(Math.random() * (+max - +min)) + +min;;
 
         return this.toIntent('MockExam');
     },
@@ -130,10 +132,10 @@ app.setHandler({
     },
     QuestionReply(){
         if (this.$inputs.letter.value.toLowerCase() == correctAnswer.toLowerCase()){
-            this.tell("You are correct! It is " +  this.$inputs.letter.value );
+            this.ask("You are correct! It is " +  this.$inputs.letter.value + " \nWould you like to continue?");
 
         } else {
-            this.tell("You were incorrect. It is " +  correctAnswer);
+            this.ask("You were incorrect. It is " +  correctAnswer + " \nWould you like to continue?");
         }
 
         
