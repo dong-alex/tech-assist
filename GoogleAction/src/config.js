@@ -19,7 +19,7 @@ module.exports = {
         GoogleSheetsCMS: {
             spreadsheetId: '10oX-86DeSJPXBuIJdhJr_744ccdZAX5yrM6si_Jhj8E',
             access: 'private',
-            credentialsFile: './credentials/google-sheets.json',
+            credentialsFile: '/home/kynan/Desktop/Hacked2020/Cred/google-sheets.json',
             sheets: [
                 {
                     name: 'responses',

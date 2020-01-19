@@ -10,7 +10,7 @@ module.exports = {
       nlu: 'dialogflow',
       dialogflow: {
         projectId: 'hacked2020-algos-658cc',
-        keyFile: './hacked2020customintent.json'
+        keyFile: '/home/kynan/Desktop/Hacked2020/Cred/hacked2020customintent.json'
       }
     },
     endpoint: '${JOVO_WEBHOOK_URL}',
