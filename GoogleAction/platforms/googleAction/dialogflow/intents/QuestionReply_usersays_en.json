@@ -1,0 +1,62 @@
+[
+	{
+		"data": [
+			{
+				"text": "letter",
+				"userDefined": true,
+				"alias": "letter",
+				"meta": "@answerReply"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "the answer is ",
+				"userDefined": false
+			},
+			{
+				"text": "letter",
+				"userDefined": true,
+				"alias": "letter",
+				"meta": "@answerReply"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "it's ",
+				"userDefined": false
+			},
+			{
+				"text": "letter",
+				"userDefined": true,
+				"alias": "letter",
+				"meta": "@answerReply"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "it is ",
+				"userDefined": false
+			},
+			{
+				"text": "letter",
+				"userDefined": true,
+				"alias": "letter",
+				"meta": "@answerReply"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

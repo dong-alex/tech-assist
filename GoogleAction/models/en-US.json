@@ -1,5 +1,24 @@
 {
 	"invocation": "my test app",
+	"inputTypes": [
+		{
+			"name": "answerReply",
+			"values": [
+				{
+					"value": "A"
+				},
+				{
+					"value": "B"
+				},
+				{
+					"value": "C"
+				},
+				{
+					"value": "D"
+				}
+			]
+		}
+	],
 	"intents": [
 		{
 			"name": "HelloWorldIntent",
@@ -10,22 +29,61 @@
 			]
 		},
 		{
-			"name": "MyNameIsIntent",
+				"name": "MockExam",
+				"phrases": [
+					"Quiz Me",
+					"Mock Interview",
+					"Mock Exam",
+					"Test Question"
+				]
+		},
+		{
+				"name": "QuestionReply",
+				"phrases": [
+					"{letter}",
+					"the answer is {letter}",
+					"it's {letter}",
+					"it is {letter}"
+				],
+				"inputs": [
+				    {
+				        "name": "letter",
+				        "type": "answerReply"
+				    }
+				]
+		},
+		{
+			"name": "YesIntent",
 			"phrases": [
-				"{name}",
-				"my name is {name}",
-				"i am {name}",
-				"you can call me {name}"
+				"yes",
+				"yeah",
+				"ok",
+				"alright",
+				"yep",
+				"yo",
+				"okay",
+				"sure",
+				"yes please",
+				"yeah please"
 			],
-			"inputs": [
-				{
-					"name": "name",
-					"type": {
-						"alexa": "AMAZON.US_FIRST_NAME",
-						"dialogflow": "@sys.given-name"
-					}
-				}
-			]
+			"alexa": {
+				"name": "AMAZON.YesIntent",
+				"samples": []
+			}
+		},
+		{
+			"name": "NoIntent",
+			"phrases": [
+				"no",
+				"nope",
+				"na",
+				"don't",
+				"I don't"
+			],
+			"alexa": {
+				"name": "AMAZON.NoIntent",
+				"samples": []
+			}
 		}
 	],
 	"alexa": {

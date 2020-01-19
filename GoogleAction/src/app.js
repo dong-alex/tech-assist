@@ -16,6 +16,9 @@ const app = new App();
 const QUESTION_INDEX = 0;
 const CORRECT_INDEX = 1;
 const WRONG_INDEX = [2,3,4];
+const CORRECT_ANS = ["A","B","C","D"]
+
+var correctAnswer;
 
 app.use(
     new Alexa(),
@@ -39,16 +42,18 @@ function shuffleArray(a) { // Fisher-Yates shuffle, no side effects
 
 app.setHandler({
     LAUNCH() {
+
+        // Start the index for questions at 0
         this.$session.$data.questionIndex = 0;
 
-        return this.toIntent('MockInterview');
+        return this.toIntent('MockExam');
     },
 
     HelloWorldIntent() {
         this.ask('Here we go!');
     },
 
-    MockInterview() {
+    MockExam() {
         
         var choice = shuffleArray([0,1,2,3]);
         var correct = choice[0];
@@ -78,16 +83,21 @@ app.setHandler({
         assign[wrong[1]] = this.$cms.question[1][3];
         assign[wrong[2]] = this.$cms.question[1][4];
 */
+
+        // Grab all content from the question entry
         let questionIndex = this.$session.$data.questionIndex;
 
         assign[correct] = this.$cms.question[questionIndex].Correct;
+
+        correctAnswer = CORRECT_ANS[correct];
+
         assign[wrong[0]] = this.$cms.question[questionIndex].Wrong1;
         assign[wrong[1]] = this.$cms.question[questionIndex].Wrong2;
         assign[wrong[2]] = this.$cms.question[questionIndex].Wrong3;
 
         var Askquestion = this.$cms.question[questionIndex].Ques;
   
-
+        // Build the speech being sent to google assist
         let speech = this.speechBuilder()
             .addText('The question is ')
             .addBreak('300ms')
@@ -111,12 +121,34 @@ app.setHandler({
             .addText(assign[3])
             .addBreak('300ms');
 
-        this.tell(speech);
+        this.ask(speech);
 
         
         //this.tell(this.t('welcome.speech')); 
         //this.$cms.reply[1][1] = "No"
     
+    },
+    QuestionReply(){
+        if (this.$inputs.letter.value.toLowerCase() == correctAnswer.toLowerCase()){
+            this.tell("You are correct! It is " +  this.$inputs.letter.value );
+
+        } else {
+            this.tell("You were incorrect. It is " +  correctAnswer);
+        }
+
+        
+    },
+
+    YesIntent() {
+        return this.toIntent('MockInterview');
+    },
+
+    NoIntent() {
+        return this.toIntent('END');
+    },
+
+    END(){
+        this.tell("We are done!");
     },
 });
 
