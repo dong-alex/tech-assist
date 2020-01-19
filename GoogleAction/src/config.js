@@ -16,20 +16,22 @@ module.exports = {
      },
 
     cms: {
-	    GoogleSheetsCMS: {
-	        spreadsheetId: '10oX-86DeSJPXBuIJdhJr_744ccdZAX5yrM6si_Jhj8E',
-	        access: 'private',
-	        credentialsFile: './credentials/google-sheets.json',
-	        sheets: [
-	            {
-	                name: 'responses',
-	                type: 'Responses',
-	                position: 1
+        GoogleSheetsCMS: {
+            spreadsheetId: '10oX-86DeSJPXBuIJdhJr_744ccdZAX5yrM6si_Jhj8E',
+            access: 'private',
+            credentialsFile: './credentials/google-sheets.json',
+            sheets: [
+                {
+                    name: 'responses',
+                    type: 'Responses',
+                    position: 1
                 },
                 {
-	                name: 'reply',
-	                position: 2
-            	}
+                    name: 'question',
+                    type: 'ObjectArray',
+                    range: 'A:E',
+                    position: 2
+                }
             ],
             caching: false,                 // disable caching for all sheets
         }

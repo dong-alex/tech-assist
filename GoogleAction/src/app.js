@@ -13,6 +13,10 @@ const { GoogleSheetsCMS } = require('jovo-cms-googlesheets');
 
 const app = new App();
 
+const QUESTION_INDEX = 0;
+const CORRECT_INDEX = 1;
+const WRONG_INDEX = [2,3,4];
+
 app.use(
     new Alexa(),
     new GoogleAssistant(),
@@ -22,12 +26,21 @@ app.use(
 );
 
 
+function shuffleArray(a) { // Fisher-Yates shuffle, no side effects
+    var i = a.length, t, j;
+    a = a.slice();
+    while (--i) t = a[i], a[i] = a[j = ~~(Math.random() * (i+1))], a[j] = t;
+    return a;
+}
+
 // ------------------------------------------------------------------
 // APP LOGIC
 // ------------------------------------------------------------------
 
 app.setHandler({
     LAUNCH() {
+        this.$session.$data.questionIndex = 0;
+
         return this.toIntent('MockInterview');
     },
 
@@ -36,14 +49,76 @@ app.setHandler({
     },
 
     MockInterview() {
-    	
-    	var cars = ["Saab", "Volvo", "BMW"];	
-    	var randomItem = cars[Math.floor(Math.random()*cars.length)];
-        //this.tell(randomItem);
-        var speaking = this.$cms.reply[1][0] + " " + this.t('welcome.speech');
-        this.ask(speaking);	
-        this.$cms.reply[1][1] = "No"
+        
+        var choice = shuffleArray([0,1,2,3]);
+        var correct = choice[0];
+        var wrong = choice.slice(1, 4);
+
+        var assign = ["a","b","c","d"];
+
+//        assign[wrong[0]] = this.$cms.question[1][1]
+/*
+        var test = this.$cms.question[0][2];
+        //this.tell(test);
+        let speech = this.speechBuilder()
+            .addText(this.$cms.question[1].Ques)
+            .addText(this.$cms.question[1].Wrong1)
+            .addText(this.$cms.question[1].Wrong3);
+        console.log(this.$cms.question[0].Ques);
+        //console.log(speech);
+        this.tell(speech);
+        for (var key in this.$cms.question[0]) {
+            console.log(key + ' is ' + this.$cms.question[0][key]);
+        }
+        //this.tell(this.$cms.question);
+
+
+        assign[correct] = this.$cms.question[1][1];
+        assign[wrong[0]] = this.$cms.question[1][2];
+        assign[wrong[1]] = this.$cms.question[1][3];
+        assign[wrong[2]] = this.$cms.question[1][4];
+*/
+        let questionIndex = this.$session.$data.questionIndex;
+
+        assign[correct] = this.$cms.question[questionIndex].Correct;
+        assign[wrong[0]] = this.$cms.question[questionIndex].Wrong1;
+        assign[wrong[1]] = this.$cms.question[questionIndex].Wrong2;
+        assign[wrong[2]] = this.$cms.question[questionIndex].Wrong3;
+
+        var Askquestion = this.$cms.question[questionIndex].Ques;
+  
+
+        let speech = this.speechBuilder()
+            .addText('The question is ')
+            .addBreak('300ms')
+            .addText(Askquestion)
+            .addBreak('300ms')
+            .addText("Your choices are")
+            .addBreak('300ms')
+            .addText("A.")
+            .addBreak('300ms')
+            .addText(assign[0])
+            .addText("B. ")
+            .addBreak('300ms')
+            .addText(assign[1])
+            .addBreak('300ms')
+            .addText("C. ")
+            .addBreak('300ms')
+            .addText(assign[2])
+            .addBreak('300ms')
+            .addText("D. ")
+            .addBreak('300ms')
+            .addText(assign[3])
+            .addBreak('300ms');
+
+        this.tell(speech);
+
+        
+        //this.tell(this.t('welcome.speech')); 
+        //this.$cms.reply[1][1] = "No"
+    
     },
 });
 
 module.exports.app = app;
+
