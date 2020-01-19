@@ -1,8 +1,10 @@
 const express = require("express");
 const fs = require("fs");
+var cors = require("cors");
 const speech = require("@google-cloud/speech");
 
 const app = express();
+app.use(cors());
 const port = 8000;
 
 const client = new speech.SpeechClient();
@@ -47,6 +49,10 @@ app.get("/speech", (req, res) => {
   transcribe().then(transcription => {
     return res.send(transcription);
   });
+});
+
+app.post("/submit", (req, res) => {
+  // complicated
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
