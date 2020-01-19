@@ -110,24 +110,24 @@ app.setHandler({
             .addText('The question is ')
             .addBreak('300ms')
             .addText(Askquestion)
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText("Your choices are")
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText("A.")
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText(assign[0])
             .addText("B. ")
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText(assign[1])
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText("C. ")
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText(assign[2])
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText("D. ")
-            .addBreak('300ms')
+            .addBreak('700ms')
             .addText(assign[3])
-            .addBreak('300ms');
+            .addBreak('700ms');
 
         this.ask(speech);
 
