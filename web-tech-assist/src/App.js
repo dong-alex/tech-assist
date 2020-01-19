@@ -1,9 +1,18 @@
 import React from 'react';
+import useGoogleServices from "./api/services";
+import main from "./api/test";
 
 const App = () => {
-  return (<div>
+  // const {translateSpeechToText } = useGoogleServices();
+
+  const handleSpeech = () => {
+    // translateSpeechToText();
+    main()
+  };
+
+  return (<button onClick={handleSpeech}>
     Hello World
-  </div>)
+  </button>)
 }
 
 export default App;
