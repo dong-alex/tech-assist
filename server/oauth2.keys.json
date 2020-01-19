@@ -1,0 +1,9 @@
+{
+  "web": {
+    "client_id": "161780922178-bc5mhr7daatm4mg3j95gjqld7tbi6e4m.apps.googleusercontent.com",
+    "client_secret": "VeVK_8YRSHdR0hptSv1EC404",
+    "redirect_uris": [
+        "http://localhost:8000/oauth2callback"
+    ]
+  }
+}
