@@ -20,6 +20,8 @@ const CORRECT_ANS = ["A","B","C","D"]
 
 var correctAnswer;
 var questionList;
+var numCorrect;
+var numAsked;
 
 app.use(
     new Alexa(),
@@ -45,7 +47,8 @@ app.setHandler({
     LAUNCH() {
         var length = this.$cms.question.length;
         questionList = shuffleArray([...Array(length).keys()])
-
+        numCorrect = 0;
+        numAsked = 0;
         return this.toIntent('MockExam');
     },
 
@@ -58,6 +61,7 @@ app.setHandler({
         // Start the question index
         this.$session.$data.questionIndex = questionList[0];
         questionList.shift()
+        numAsked++;
 
         var choice = shuffleArray([0,1,2,3]);
         var correct = choice[0];
@@ -136,9 +140,12 @@ app.setHandler({
         if (this.$inputs.letter.value.toLowerCase() == correctAnswer.toLowerCase()){
             if (questionList === undefined || questionList.length == 0){
                 this.tell("You are correct! It is " +  this.$inputs.letter.value + " \nYou completed all the questions!");
+                numCorrect++;
             } else {
                 this.ask("You are correct! It is " +  this.$inputs.letter.value + " \nWould you like to continue?");
+                numCorrect++;
             }
+
         } else {
             if (questionList === undefined || questionList.length == 0){
                 this.tell("You are correct! It is " +  correctAnswer + " \nYou completed all the questions!");
@@ -160,7 +167,7 @@ app.setHandler({
     },
 
     END(){
-        this.tell("We are done!");
+        this.tell("Training is over. Your score is " + numCorrect + " / " + numAsked);
     },
 });
 
