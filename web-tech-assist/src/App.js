@@ -22,13 +22,19 @@ const App = () => {
     console.log(question);
   }, [question]);
 
-  const handleSubmitQuestion = (event) => {
+  const handleSubmitQuestion = event => {
     console.log(question, correctAnswer);
+    getTest();
 
-    if (question && correctAnswer && wrongAnswer1 && wrongAnswer2 && wrongAnswer3) {
+    if (
+      question &&
+      correctAnswer &&
+      wrongAnswer1 &&
+      wrongAnswer2 &&
+      wrongAnswer3
+    ) {
       console.log("VALID");
       // api call submitQuestion(question, correctAnswer, wrongAnswer1 ....)
-      getTest();
     } else {
       console.log("INVALID");
     }

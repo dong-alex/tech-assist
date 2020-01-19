@@ -9,7 +9,7 @@ const useGoogleService = () => {
   };
 
   const getTest = async () => {
-    axios.get(BASE_URL).then((response) => {
+    axios.get(BASE_URL + "/submit").then((response) => {
       console.log(response.data);
     });
   }
